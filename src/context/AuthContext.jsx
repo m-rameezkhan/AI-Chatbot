@@ -10,23 +10,27 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check active session
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const { data } = await supabase.auth.getSession();
       if (data?.session) setUser(data.session.user);
       setLoading(false);
     };
     getSession();
 
     // Listen for auth changes (login/logout)
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user || null);
-      }
-    );
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
 
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const value = { user, setUser, loading };
+  // 🔹 Logout function
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
+
+  const value = { user, setUser, loading, logout };
 
   return (
     <AuthContext.Provider value={value}>

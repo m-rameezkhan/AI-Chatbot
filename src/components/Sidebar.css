@@ -1,0 +1,31 @@
+.sidebar {
+  width: 200px;
+  background-color: #e9ecef;
+  height: calc(100vh - 50px);
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.new-pitch-btn {
+  background-color: #006699;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.new-pitch-btn:hover {
+  background-color: #004d73;
+}

@@ -23,7 +23,6 @@ const Chat = () => {
     if (!user) return;
 
     if (pitchId === "new") {
-      // Start a new chat
       setMessages([
         {
           sender: "ai",
@@ -50,10 +49,8 @@ const Chat = () => {
       if (error) console.error("Error fetching pitch:", error);
       else {
         const msgs = [];
-        if (data.user_message)
-          msgs.push({ sender: "user", text: data.user_message });
-        if (data.ai_response)
-          msgs.push({ sender: "ai", text: data.ai_response });
+        if (data.user_message) msgs.push({ sender: "user", text: data.user_message });
+        if (data.ai_response) msgs.push({ sender: "ai", text: data.ai_response });
         setMessages(msgs);
         setCurrentPitchId(data.id);
       }
@@ -80,13 +77,17 @@ const Chat = () => {
           .eq("id", currentPitchId);
       } else {
         // Insert new pitch
-        const { data, error } = await supabase.from("pitches").insert([
-          {
-            user_id: user.id,
-            user_message: text,
-            ai_response: aiResponse,
-          },
-        ]).select().single();
+        const { data, error } = await supabase
+          .from("pitches")
+          .insert([
+            {
+              user_id: user.id,
+              user_message: text,
+              ai_response: aiResponse,
+            },
+          ])
+          .select()
+          .single();
         if (!error) setCurrentPitchId(data.id); // set new pitchId
       }
 
@@ -106,7 +107,6 @@ const Chat = () => {
           type="chat"
           onSelectPitch={(id) => {
             if (id === "new") {
-              // Start a new chat
               setMessages([
                 {
                   sender: "ai",
@@ -120,12 +120,12 @@ const Chat = () => {
                 },
               ]);
               setCurrentPitchId(null);
-              navigate("/chat/new"); // optional, updates URL
+              navigate("/chat/new");
             } else {
-              // Load previous pitch
               navigate(`/chat/${id}`);
             }
-          }} />
+          }}
+        />
         <div className="chat-content">
           <div className="chat-messages">
             {messages.map((msg, i) => (
@@ -133,7 +133,7 @@ const Chat = () => {
             ))}
             {loading && <Loader />}
           </div>
-          <ChatInput onSend={handleSend} />
+          <ChatInput onSend={handleSend} disabled={loading} />
         </div>
       </div>
     </div>

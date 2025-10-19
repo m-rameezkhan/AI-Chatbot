@@ -17,7 +17,11 @@ Return the output in JSON format like this:
   "tagline": "...",
   "pitch": "...",
   "targetAudience": "...",
-  "landingPageCopy": "..."
+  "landingPageCopy": {
+    "headline": "...",
+    "subheadline": "...",
+    "callToAction": "..."
+  }
 }
 
 User idea: ${userMessage}
@@ -31,30 +35,39 @@ User idea: ${userMessage}
     // Strip code fences if present
     let text = result.text.replace(/```(json)?/g, "").trim();
 
-    // Parse JSON safely
+    // Attempt safe JSON parsing
     let output;
     try {
       output = JSON.parse(text);
     } catch (err) {
-      console.error("Failed to parse Gemini JSON:", err);
-      return {
+      console.warn("Gemini returned non-JSON text. Wrapping as plain text:", text);
+      // Wrap plain text in structured format for ChatMessage
+      output = {
         startupName: "",
         tagline: "",
-        pitch: "⚠️ Sorry, AI returned invalid format.",
+        pitch: text,
         targetAudience: "",
-        landingPageCopy: "",
+        landingPageCopy: {
+          headline: "",
+          subheadline: "",
+          callToAction: "",
+        },
       };
     }
 
     return output;
   } catch (err) {
-    console.error("Gemini Error:", err);
+    console.error("Gemini API Error:", err);
     return {
       startupName: "",
       tagline: "",
       pitch: "⚠️ Sorry, something went wrong while generating your pitch.",
       targetAudience: "",
-      landingPageCopy: "",
+      landingPageCopy: {
+        headline: "",
+        subheadline: "",
+        callToAction: "",
+      },
     };
   }
 }

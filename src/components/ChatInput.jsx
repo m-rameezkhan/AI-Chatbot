@@ -1,24 +1,27 @@
 import React, { useState } from "react";
-import "../styles/chat.css";
 
-const ChatInput = ({ onSend }) => {
-  const [input, setInput] = useState("");
+const ChatInput = ({ onSend, disabled }) => {
+  const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSend(input);
-    setInput("");
+    if (!text.trim()) return;
+    onSend(text);
+    setText("");
   };
 
   return (
     <form className="chat-input" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Type your pitch idea..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Type your message..."
+        disabled={disabled} // Disable input while loading
       />
-      <button type="submit">Send</button>
+      <button type="submit" disabled={disabled}>
+        {disabled ? "Sending..." : "Send"}
+      </button>
     </form>
   );
 };

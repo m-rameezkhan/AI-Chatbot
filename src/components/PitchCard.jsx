@@ -1,18 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./PitchCard.css";
 
-function PitchCard({ pitch }) {
-  const navigate = useNavigate();
+function PitchCard({ pitch, onClick }) {
+  const snippet = pitch.ai_response?.pitch
+    ? pitch.ai_response.pitch.substring(0, 100) + "..."
+    : "No pitch yet";
 
   return (
-    <div className="pitch-card" onClick={() => navigate(`/chat/${pitch.id}`)}>
-      <h3>{pitch.name}</h3>
-      <p className="tagline">{pitch.tagline}</p>
-      <p className="desc">{pitch.description}</p>
+    <div className="pitch-card" onClick={onClick}>
+      <h3>{pitch.ai_response?.startupName || pitch.user_message}</h3>
+      <p className="tagline">{pitch.ai_response?.tagline || "No tagline"}</p>
+      <p className="desc">{snippet}</p>
       <div className="card-footer">
-        <span>{pitch.date}</span>
-        <button className="view-btn">Open Chat</button>
+        <span>{new Date(pitch.created_at).toLocaleDateString()}</span>
+        <button className="view-btn" onClick={onClick}>
+          Open Chat
+        </button>
       </div>
     </div>
   );

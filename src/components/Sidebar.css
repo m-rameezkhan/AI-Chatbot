@@ -1,31 +1,163 @@
+/* Base Sidebar */
 .sidebar {
-  width: 200px;
-  background-color: #e9ecef;
-  height: calc(100vh - 50px);
+  width: 220px;
+  background-color: #f8f9fa;
+  height: calc(100vh - 60px); /* Assuming navbar height */
   padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 1px solid #ddd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+/* Headings */
+.sidebar h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.sidebar li {
-  padding: 10px 0;
-  cursor: pointer;
-}
-
+/* Buttons */
 .new-pitch-btn {
   background-color: #006699;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 8px 16px;
+  padding: 10px;
   border-radius: 6px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
   width: 100%;
+  transition: background 0.3s;
 }
 
 .new-pitch-btn:hover {
   background-color: #004d73;
+}
+
+/* Menu List - Dashboard */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-list li {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.menu-list li:hover {
+  background-color: #e0f0ff;
+}
+
+/* Chat Sidebar */
+.chat-sidebar {
+  width: 250px;
+}
+
+.pitch-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pitch-item {
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pitch-item:hover {
+  background-color: #e1f0ff;
+  transform: translateX(3px);
+}
+
+.empty {
+  color: #777;
+  font-style: italic;
+  padding: 8px 0;
+}
+
+
+.pitch-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.pitch-name {
+  flex: 1;
+}
+
+.delete-icon {
+  color: red;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Modal styles */
+.delete-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.delete-modal-content {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cancel-btn {
+  background: gray;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
 }

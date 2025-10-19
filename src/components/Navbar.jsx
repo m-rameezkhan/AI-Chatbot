@@ -12,19 +12,21 @@ function Navbar({ type }) {
     navigate("/"); // redirect to login
   };
 
+  const handleNewChat = () => {
+    navigate("/chat/new"); // start a new chat
+  };
+
   return (
     <nav className={`navbar ${type === "chat" ? "chat-navbar" : ""}`}>
       <h1 className="logo">PitchGen AI</h1>
 
       <div className="nav-links">
-        {user && (
-          <span className="user-email">
-            {user.email}
-          </span>
-        )}
+        {user && <span className="user-email">{user.email}</span>}
 
         <Link to="/dashboard">Dashboard</Link>
-        <Link to="/chat/1">Chat</Link>
+        <span onClick={handleNewChat} className="chat-btn">
+          Chat
+        </span>
         <button onClick={handleLogout} className="logout-btn">
           Logout
         </button>

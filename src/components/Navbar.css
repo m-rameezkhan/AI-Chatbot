@@ -32,3 +32,6 @@
   color: #ddd;
   margin-right: 10px;
 }
+.chat-btn {
+  cursor: pointer;
+}
